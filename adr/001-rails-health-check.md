@@ -15,7 +15,7 @@ The Rails backend exposes `/edge/v0/health` which returns a JSON payload. Apex h
 ## Scope
 
 - `app`, `com`, `org` only
-- `dev/apex` is **excluded** — its `/health` returns Worker-only status by design
+- `dev` is **excluded** — its `/health` returns Worker-only status by design
 - Local dev: `wrangler dev` runs on the host (outside Docker), so `RAILS_API_URL=http://localhost:3000`
 - Production: real URL (e.g. `https://api.umaxica.com`)
 

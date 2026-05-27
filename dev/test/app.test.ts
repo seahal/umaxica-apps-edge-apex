@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vite-plus/test';
 import { app } from '../src/app';
 
-describe('dev/apex/src/app.ts', () => {
+describe('dev/src/app.ts', () => {
   describe('buildApexTitle', () => {
     it('returns base title without pageName', async () => {
       const res = await app.request('/health');

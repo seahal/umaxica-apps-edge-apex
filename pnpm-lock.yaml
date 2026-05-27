@@ -152,7 +152,7 @@ importers:
         specifier: ^4.71.0
         version: 4.72.0(@cloudflare/workers-types@4.20260523.1)
 
-  dev/apex:
+  dev:
     dependencies:
       hono:
         specifier: ^4.12.5

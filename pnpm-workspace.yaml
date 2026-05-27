@@ -1,7 +1,7 @@
 packages:
   - app
   - com
-  - dev/apex
+  - dev
   - org
   - net
 
