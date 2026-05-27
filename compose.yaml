@@ -29,7 +29,6 @@ services:
     tty: true
     stdin_open: true
     init: true
-    user: apex:group
     environment:
       - CLOUDFLARE_ENV=development
       - VITE_GIT_HOOKS=0

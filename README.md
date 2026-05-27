@@ -6,7 +6,7 @@
 
 ## Prerequisites
 
-- Node.js 24.x (`node:24-trixie`)
+- Node.js 26.x (`node:26-trixie`)
 - [pnpm](https://pnpm.io/) 10.29+
 - Docker & Docker Compose (optional)
 
@@ -63,7 +63,7 @@ Oxfmt, Oxlint, tsgo, and Vitest are bundled with Vite+ — no separate installat
 
 The development environment can be set up via Docker + VS Code DevContainer.
 
-- **Base image**: `node:24-trixie` with pnpm (corepack) and Vite+ pre-installed
+- **Base image**: `node:26-trixie` with pnpm (corepack) and Vite+ pre-installed
 - **DevContainer**: configured in `.devcontainer/devcontainer.json`
   - Extensions: Claude Code, Oxc, Playwright
   - Disabled: ESLint, Prettier, GitLens, GitHub Copilot
