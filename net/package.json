@@ -1,5 +1,5 @@
 {
-  "name": "umaxica-apps-edge-net-apex",
+  "name": "umaxica-apps-edge-apex-net",
   "type": "module",
   "scripts": {
     "build:css": "vp exec tailwindcss -i ./src/style.css -o ./public/style.css --minify",

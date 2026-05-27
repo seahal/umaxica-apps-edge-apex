@@ -1,4 +1,4 @@
-# Plan 002: Create `dev/apex` — Hono on Vercel
+# Plan 002: Create `dev` — Hono on Vercel
 
 ## Status: Completed (partial — see Outcome)
 
@@ -8,7 +8,7 @@ https://github.com/seahal/umaxica-apps-edge/issues/248
 
 ## Problem
 
-`umaxica.dev` is deployed on Vercel. There is currently no apex-layer Hono service for the `dev` domain. A lightweight `dev/apex` service is needed to handle:
+`umaxica.dev` is deployed on Vercel. There is currently no apex-layer Hono service for the `dev` domain. A lightweight `dev` service is needed to handle:
 
 - Root redirect (`/`) → `umaxica.dev`
 - Health check (`/health`) → proxy and display Rails `/edge/v0/health` JSON
@@ -72,7 +72,7 @@ No `vercel.json` is required. Vercel should auto-detect `src/index.ts` as the en
 ## File Structure
 
 ```
-dev/apex/
+dev/
   src/
     app.ts          # Hono app, direct composition
     index.ts        # Vercel entry: export default app
@@ -84,7 +84,7 @@ dev/apex/
 
 ## Changes to Repo Root
 
-- `pnpm-workspace.yaml`: add `dev/apex` to packages list
+- `pnpm-workspace.yaml`: add `dev` to packages list
 
 ## Dependencies
 
@@ -114,22 +114,22 @@ dev/apex/
 
 ### Changes Made
 
-- `dev/apex/` workspace created with `src/app.ts`, `src/index.ts`, `package.json`, `tsconfig.json`
-- `pnpm-workspace.yaml` — added `dev/apex`
+- `dev/` workspace created with `src/app.ts`, `src/index.ts`, `package.json`, `tsconfig.json`
+- `pnpm-workspace.yaml` — added `dev`
 - Routes: `GET /` → 301 redirect to `process.env.DEV_CORE_URL ?? 'https://umaxica.dev/'`; `GET /about` → bilingual HTML; `GET /health` → Worker's own health JSON
-- Removed the Vite build path and `dev/apex/vercel.json`; Vercel should now serve the Hono function instead of the bundled source file
+- Removed the Vite build path and `dev/vercel.json`; Vercel should now serve the Hono function instead of the bundled source file
 
 ### Deviation from Plan
 
-`GET /health` returns the Worker's own health status `{status:'ok', timestamp, service:'dev-apex'}` rather than proxying Rails `/edge/v0/health`. `RAILS_API_URL` is not used. This is intentional per the implementer — Rails proxy is tracked in plan/issue #247.
+`GET /health` returns the Worker's own health status `{status:'ok', timestamp, service:'dev'}` rather than proxying Rails `/edge/v0/health`. `RAILS_API_URL` is not used. This is intentional per the implementer — Rails proxy is tracked in plan/issue #247.
 
 ### Known Gap
 
-No test files added for `dev/apex`. Consider adding smoke tests if the workspace grows.
+No test files added for `dev`. Consider adding smoke tests if the workspace grows.
 
 ### Verification
 
-- `./node_modules/.bin/tsc --noEmit` in `dev/apex`: ✅ passes
+- `./node_modules/.bin/tsc --noEmit` in `dev`: ✅ passes
 - `pnpm dlx vercel build --yes`: blocked locally because the Vercel token is not valid in this environment
 - `vp check` / `vp test`: not rerun here because the local `vp` wrapper currently fails to resolve `vite-plus/bin/vp`
 

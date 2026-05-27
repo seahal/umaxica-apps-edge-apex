@@ -19,5 +19,5 @@ This directory contains pending implementation plans.
 | Plan                                         | Issue                                                          | Title                                              |
 | -------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------- |
 | [001](../adr/001-rails-health-check.md)      | [#247](https://github.com/seahal/umaxica-apps-edge/issues/247) | Rails backend health check integration             |
-| [002](../adr/002-dev-apex-vercel.md)         | [#248](https://github.com/seahal/umaxica-apps-edge/issues/248) | Create `dev/apex` — Hono on Vercel                 |
+| [002](../adr/002-dev-vercel.md)         | [#248](https://github.com/seahal/umaxica-apps-edge/issues/248) | Create `dev` — Hono on Vercel                 |
 | [003](../adr/003-apex-direct-composition.md) | [#249](https://github.com/seahal/umaxica-apps-edge/issues/249) | Migrate apex workspaces to direct Hono composition |

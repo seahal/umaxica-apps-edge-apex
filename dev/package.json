@@ -1,5 +1,5 @@
 {
-  "name": "umaxica-apps-edge-dev-apex",
+  "name": "umaxica-apps-edge-apex-dev",
   "type": "module",
   "scripts": {
     "build": "tsc --noEmit",
@@ -10,7 +10,8 @@
     "hono": "^4.12.5"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "typescript": "catalog:"
-  }
+    "@types/node": "^25.7.0",
+    "typescript": "^6.0.3"
+  },
+  "packageManager": "pnpm@10.29.3"
 }
