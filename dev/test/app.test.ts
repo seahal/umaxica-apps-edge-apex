@@ -1,7 +1,11 @@
 import { describe, it, expect } from 'vite-plus/test';
-import { app } from '../src/app';
+import defaultHandler, { app } from '../src/app';
 
 describe('dev/src/app.ts', () => {
+  it('exports a default fetch handler for Vercel', () => {
+    expect(defaultHandler).toBeTypeOf('function');
+  });
+
   describe('buildApexTitle', () => {
     it('returns base title without pageName', async () => {
       const res = await app.request('/health');

@@ -121,3 +121,4 @@ app.get('/', (c) => {
 });
 
 export { app };
+export default app.fetch.bind(app);
