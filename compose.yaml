@@ -25,6 +25,7 @@ services:
       - '5201:5201' # net
       - '5301:5301' # org
       - '5401:5401' # app
+      - '5501:5501' # dev
     command: sleep infinity
     tty: true
     stdin_open: true
