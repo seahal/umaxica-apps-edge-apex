@@ -80,16 +80,18 @@ describe('dev/src/app.ts', () => {
   });
 
   describe('GET /', () => {
-    it('redirects to DEV_CORE_URL with 301', async () => {
+    it('redirects to configured DEV_CORE_URL with 301', async () => {
+      process.env.DEV_CORE_URL = 'https://example.com/';
       const res = await app.request('/');
       expect(res.status).toBe(301);
-      expect(res.headers.get('location')).toBe('https://umaxica.dev/');
+      expect(res.headers.get('location')).toBe('https://example.com/');
+      delete process.env.DEV_CORE_URL;
     });
 
     it('redirects to default DEV_CORE_URL', async () => {
       const res = await app.request('/');
       expect(res.status).toBe(301);
-      expect(res.headers.get('location')).toBe('https://umaxica.dev/');
+      expect(res.headers.get('location')).toBe('https://www.umaxica.dev/');
     });
   });
 
