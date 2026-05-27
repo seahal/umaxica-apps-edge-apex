@@ -1,25 +1,26 @@
 /** @jsxImportSource hono/jsx */
 import { Hono } from 'hono';
 import { renderToString } from 'hono/jsx/dom/server';
-import { Layout, getMeta, setMeta, withMeta, type Meta } from '../seo';
+import { SeoHead, getMeta, setMeta, type Meta } from '../seo';
 
 describe('seo helpers', () => {
-  it('withMeta makes metadata available via getMeta', async () => {
+  it('setMeta makes metadata available via getMeta', async () => {
     const app = new Hono();
     const meta: Meta = { pageTitle: 'Pricing', description: 'Plans and pricing' };
 
-    app.use('/meta', withMeta(meta));
-    app.get('/meta', (c) => c.json(getMeta(c)));
+    app.get('/meta', (c) => {
+      setMeta(c, meta);
+      return c.json(getMeta(c));
+    });
 
     const res = await app.request('/meta');
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual(meta);
   });
 
-  it('setMeta can override metadata inside a route and Layout outputs SEO tags', async () => {
+  it('SeoHead outputs SEO tags from route metadata', async () => {
     const app = new Hono();
 
-    app.use('/page', withMeta({ pageTitle: 'Old title' }));
     app.get('/page', (c) => {
       setMeta(c, {
         pageTitle: 'Pricing',
@@ -38,11 +39,7 @@ describe('seo helpers', () => {
         },
       });
 
-      const html = renderToString(
-        <Layout c={c} brand={{ brandName: 'Umaxica' }}>
-          <main>Pricing page</main>
-        </Layout>,
-      );
+      const html = renderToString(<SeoHead c={c} brand={{ brandName: 'Umaxica' }} />);
       return c.html(html);
     });
 
@@ -64,15 +61,11 @@ describe('seo helpers', () => {
     expect(body).toContain('<meta name="twitter:site" content="@umaxica"/>');
   });
 
-  it('Layout title is brand-only when no pageTitle/defaultPageTitle are present', async () => {
+  it('title is brand-only when no pageTitle/defaultPageTitle are present', async () => {
     const app = new Hono();
 
     app.get('/brand-only', (c) => {
-      const html = renderToString(
-        <Layout c={c} brand={{ brandName: 'Umaxica' }}>
-          <main>Top page</main>
-        </Layout>,
-      );
+      const html = renderToString(<SeoHead c={c} brand={{ brandName: 'Umaxica' }} />);
       return c.html(html);
     });
 
@@ -81,12 +74,12 @@ describe('seo helpers', () => {
     expect(body).toContain('<title>Umaxica</title>');
   });
 
-  it('Layout uses default metadata and omits blank optional tags', async () => {
+  it('uses default metadata and omits blank optional tags', async () => {
     const app = new Hono();
 
     app.get('/default-meta', (c) => {
       const html = renderToString(
-        <Layout
+        <SeoHead
           c={c}
           brand={{ brandName: 'Umaxica' }}
           defaultMeta={{
@@ -107,9 +100,7 @@ describe('seo helpers', () => {
               site: '   ',
             },
           }}
-        >
-          <main>Default metadata page</main>
-        </Layout>,
+        />,
       );
       return c.html(html);
     });

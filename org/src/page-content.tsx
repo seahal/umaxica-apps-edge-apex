@@ -4,10 +4,10 @@ import { DEFAULT_BRAND_NAME } from '../../shared/brand';
 const ABOUT_DESCRIPTION =
   'umaxica.org is the apex domain of the UMAXICA platform. Services and content are available on dedicated subdomains';
 
-export const ABOUT_CANONICAL_URL = 'https://umaxica.org/about';
-export const ABOUT_ROBOTS = 'index,follow';
+const ABOUT_CANONICAL_URL = 'https://umaxica.org/about';
+const ABOUT_ROBOTS = 'index,follow';
 
-export function buildApexTitle(_env: AssetEnv, domain: string, pageName?: string): string {
+function buildApexTitle(_env: AssetEnv, domain: string, pageName?: string): string {
   const brandName = DEFAULT_BRAND_NAME;
   const baseTitle = `${brandName} (${domain}) - Apex`;
   return pageName ? `${pageName} | ${baseTitle}` : baseTitle;
