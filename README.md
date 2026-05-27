@@ -12,12 +12,13 @@
 
 ## Workspaces
 
-| Package | Role                | Domain        | Dev Port |
-| ------- | ------------------- | ------------- | -------- |
-| `com`   | Apex/static worker  | `umaxica.com` | 5101     |
-| `app`   | Apex/static worker  | `umaxica.app` | 5401     |
-| `org`   | Apex/static worker  | `umaxica.org` | 5301     |
-| `net`   | Network apex worker | —             | 5201     |
+| Package | Role                 | Domain        | Dev Port |
+| ------- | -------------------- | ------------- | -------- |
+| `com`   | Apex/static worker   | `umaxica.com` | 5101     |
+| `app`   | Apex/static worker   | `umaxica.app` | 5401     |
+| `org`   | Apex/static worker   | `umaxica.org` | 5301     |
+| `net`   | Network apex worker  | `umaxica.net` | 5201     |
+| `dev`   | Vercel edge function | `umaxica.dev` | 5501     |
 
 ## Quick Start
 
@@ -78,9 +79,10 @@ docker compose up && docker compose exec apex bash
 
 ## Production Environment
 
-| Platform                                              | Workspaces                 | Domains                                     |
-| ----------------------------------------------------- | -------------------------- | ------------------------------------------- |
-| [Cloudflare Workers](https://workers.cloudflare.com/) | `com`, `app`, `org`, `net` | `umaxica.com`, `umaxica.app`, `umaxica.org` |
+| Platform                                              | Workspaces                 | Domains                                                    |
+| ----------------------------------------------------- | -------------------------- | ---------------------------------------------------------- |
+| [Cloudflare Workers](https://workers.cloudflare.com/) | `com`, `app`, `org`, `net` | `umaxica.com`, `umaxica.app`, `umaxica.org`, `umaxica.net` |
+| [Vercel](https://vercel.com/)                         | `dev`                      | `umaxica.dev`                                              |
 
 ### Deployment
 
@@ -94,7 +96,7 @@ vp run --filter <workspace> deploy:promote
 
 Cloudflare workspaces use `wrangler.jsonc` (`vars` + environments).
 
-For local Docker Compose development, use the Apex worker ports listed in the workspace table.
+For local Docker Compose development, `compose.yaml` publishes the workspace ports listed in the workspace table, including the Vercel-backed `dev` workspace on port 5501.
 
 ## Monitoring
 
