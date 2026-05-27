@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vite-plus/test';
-import defaultHandler, { app } from '../src/app';
+import { app, fetch } from '../src/app';
 
 describe('dev/src/app.ts', () => {
-  it('exports a default fetch handler for Vercel', () => {
-    expect(defaultHandler).toBeTypeOf('function');
+  it('exports a named fetch handler for Vercel', () => {
+    expect(fetch).toBeTypeOf('function');
   });
 
   describe('buildApexTitle', () => {
