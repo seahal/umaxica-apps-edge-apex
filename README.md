@@ -1,6 +1,6 @@
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/seahal/umaxica-apps-edge/main)
 
-# Umaxica App (EDGE)
+# Umaxica Apps Edge Apex
 
 （ ＾ν＾） Hello, World!
 
@@ -28,7 +28,7 @@ vp install
 vp run --filter <workspace> server   # e.g. com/apex, app/apex
 
 # Docker (optional)
-docker compose up && docker compose exec core bash
+docker compose up && docker compose exec apex bash
 ```
 
 ## Scripts
@@ -73,15 +73,14 @@ The development environment can be set up via Docker + VS Code DevContainer.
 # VS Code: use "Reopen in Container" for automatic setup
 
 # Or start manually with Docker Compose
-docker compose up && docker compose exec core bash
+docker compose up && docker compose exec apex bash
 ```
 
 ## Production Environment
 
-| Platform                                              | Workspaces                         | Domains                                     |
-| ----------------------------------------------------- | ---------------------------------- | ------------------------------------------- |
-| [Cloudflare Workers](https://workers.cloudflare.com/) | `com/*`, `app/*`, `org/*`, `net/*` | `umaxica.com`, `umaxica.app`, `umaxica.org` |
-| [Vercel](https://vercel.com/)                         | `dev/*`                            | `umaxica.dev`                               |
+| Platform                                              | Workspaces                                  | Domains                                     |
+| ----------------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| [Cloudflare Workers](https://workers.cloudflare.com/) | `com/apex`, `app/apex`, `org/apex`, `net/apex` | `umaxica.com`, `umaxica.app`, `umaxica.org` |
 
 ### Deployment
 
@@ -95,15 +94,7 @@ vp run --filter <workspace> deploy:promote
 
 Cloudflare workspaces use `wrangler.jsonc` (`vars` + environments).
 
-For local Docker Compose development, the workspace URL convention is:
-
-```text
-JIT_{COM,ORG,APP}_{CORE,DOCS,NEWS,HELP}_URL
-```
-
-The current Compose defaults map those names to the local dev ports for each workspace.
-
-Use the same naming pattern in other workspaces when you need a self URL or cross-workspace link target.
+For local Docker Compose development, use the Apex worker ports listed in the workspace table.
 
 ## Monitoring
 

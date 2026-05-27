@@ -1,85 +1,35 @@
 {
-  "name": "umaxica-apps-edge-dc",
+  "name": "umaxica-apps-edge-apex-dc",
   "dockerComposeFile": ["../compose.yaml", "./compose.override.yml"],
-  "service": "core",
+  "service": "apex",
   "remoteUser": "edge",
   "containerUser": "edge",
   "workspaceFolder": "/home/edge/workspace",
   "shutdownAction": "stopCompose",
-  "runServices": ["core"],
+  "runServices": ["apex"],
   "overrideCommand": false,
   "remoteEnv": {
     "EDITOR": "code --wait --reuse-window",
     "DEBUGGER_DISABLE": "1"
   },
 
-  "forwardPorts": [
-    5173, 8780, 8781, 8782, 5102, 5103, 5104, 5105, 5302, 5303, 5304, 5305, 5402, 5403, 5404, 5405
-  ],
+  "forwardPorts": [5101, 5201, 5301, 5401],
   "portsAttributes": {
-    "8781": {
-      "label": "App Domain (app)",
+    "5101": {
+      "label": "Com Apex",
       "onAutoForward": "notify"
     },
-    "8780": {
-      "label": "Com Domain (com)",
+    "5201": {
+      "label": "Net Apex",
       "onAutoForward": "notify"
     },
-    "8782": {
-      "label": "Org Domain (org)",
+    "5301": {
+      "label": "Org Apex",
       "onAutoForward": "notify"
     },
-    "5173": {
-      "label": "Net Domain (net)",
+    "5401": {
+      "label": "App Apex",
       "onAutoForward": "notify"
-    },
-    "5102": {
-      "label": "Com Core JIT",
-      "onAutoForward": "silent"
-    },
-    "5103": {
-      "label": "Com Docs JIT",
-      "onAutoForward": "silent"
-    },
-    "5104": {
-      "label": "Com Help JIT",
-      "onAutoForward": "silent"
-    },
-    "5105": {
-      "label": "Com News JIT",
-      "onAutoForward": "silent"
-    },
-    "5302": {
-      "label": "Org Core JIT",
-      "onAutoForward": "silent"
-    },
-    "5303": {
-      "label": "Org Docs JIT",
-      "onAutoForward": "silent"
-    },
-    "5304": {
-      "label": "Org Help JIT",
-      "onAutoForward": "silent"
-    },
-    "5305": {
-      "label": "Org News JIT",
-      "onAutoForward": "silent"
-    },
-    "5402": {
-      "label": "App Core JIT",
-      "onAutoForward": "silent"
-    },
-    "5403": {
-      "label": "App Docs JIT",
-      "onAutoForward": "silent"
-    },
-    "5404": {
-      "label": "App Help JIT",
-      "onAutoForward": "silent"
-    },
-    "5405": {
-      "label": "App News JIT",
-      "onAutoForward": "silent"
     }
   },
 

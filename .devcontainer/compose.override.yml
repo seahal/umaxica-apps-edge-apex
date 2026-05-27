@@ -1,6 +1,6 @@
-name: umaxica-apps-edge-dc
+name: umaxica-apps-edge-apex-dc
 services:
-  core:
+  apex:
     ports: !override []
     environment:
       - DEVCONTAINER=1
