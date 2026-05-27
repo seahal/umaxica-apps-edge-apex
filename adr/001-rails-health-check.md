@@ -8,13 +8,13 @@ https://github.com/seahal/umaxica-apps-edge/issues/247
 
 ## Problem
 
-The apex domains (`app/apex`, `com/apex`, `org/apex`) each expose a `/health` endpoint that currently only reports the Worker's own status (timestamp, brand name). There is no visibility into the Rails backend's health from these endpoints.
+The apex domains (`app`, `com`, `org`) each expose a `/health` endpoint that currently only reports the Worker's own status (timestamp, brand name). There is no visibility into the Rails backend's health from these endpoints.
 
 The Rails backend exposes `/edge/v0/health` which returns a JSON payload. Apex health pages should fetch this, display the JSON content on success, and clearly surface error states (timeout, connection failure, non-2xx response).
 
 ## Scope
 
-- `app/apex`, `com/apex`, `org/apex` only
+- `app`, `com`, `org` only
 - `dev/apex` is **excluded** — its `/health` returns Worker-only status by design
 - Local dev: `wrangler dev` runs on the host (outside Docker), so `RAILS_API_URL=http://localhost:3000`
 - Production: real URL (e.g. `https://api.umaxica.com`)
@@ -23,7 +23,7 @@ The Rails backend exposes `/edge/v0/health` which returns a JSON payload. Apex h
 
 ```
 Browser → app.umaxica.com/health
-  → Cloudflare Worker (app/apex)
+  → Cloudflare Worker (app)
       ├── Worker status: always OK
       └── fetch(RAILS_API_URL + /edge/v0/health)  ← new
            → JSON response OR error
@@ -81,7 +81,7 @@ route.get('/health', timeout(2000), async (c: HealthContext) => {
 });
 ```
 
-### 4. HTML — `shared/apex/html/health-page.ts`
+### 4. HTML — `shared/html/health-page.ts`
 
 Add a "Rails Backend" section below the existing Worker status section:
 
@@ -109,14 +109,14 @@ JSON is displayed with `JSON.stringify(JSON.parse(body), null, 2)` inside `<pre>
 
 ## Files to Change
 
-| File                              | Change                                                                                 |
-| --------------------------------- | -------------------------------------------------------------------------------------- |
-| `shared/apex/routes/health.ts`    | Add `RAILS_API_URL` to bindings, add `fetchRailsHealth()`, pass result to HTML builder |
-| `shared/apex/html/health-page.ts` | Add optional `railsResult` param to `buildHealthPageHtml`, render Rails section        |
-| `app/apex/wrangler.jsonc`         | Add `RAILS_API_URL` (dev: `http://localhost:3000`, prod: TBD)                          |
-| `com/apex/wrangler.jsonc`         | Same                                                                                   |
-| `org/apex/wrangler.jsonc`         | Same                                                                                   |
-| Tests                             | Mock `fetch` for: success (2xx JSON), non-2xx, network error, URL not set              |
+| File                         | Change                                                                                 |
+| ---------------------------- | -------------------------------------------------------------------------------------- |
+| `shared/routes/health.ts`    | Add `RAILS_API_URL` to bindings, add `fetchRailsHealth()`, pass result to HTML builder |
+| `shared/html/health-page.ts` | Add optional `railsResult` param to `buildHealthPageHtml`, render Rails section        |
+| `app/wrangler.jsonc`         | Add `RAILS_API_URL` (dev: `http://localhost:3000`, prod: TBD)                          |
+| `com/wrangler.jsonc`         | Same                                                                                   |
+| `org/wrangler.jsonc`         | Same                                                                                   |
+| Tests                        | Mock `fetch` for: success (2xx JSON), non-2xx, network error, URL not set              |
 
 ## Docker Compose Note
 
@@ -153,7 +153,7 @@ Add `RAILS_API_URL` to each affected workspace's `wrangler.jsonc` under both `de
 # Production:                            https://api.umaxica.com  (TBD)
 ```
 
-### Shared Logic (`shared/apex/routes/health.ts`)
+### Shared Logic (`shared/routes/health.ts`)
 
 Extend the health route handler to:
 
@@ -169,7 +169,7 @@ Error cases to handle:
 - Response status is not 2xx → display HTTP status + body if parseable
 - JSON parse failure → display raw text
 
-### HTML Builder (`shared/apex/html/health-page.ts`)
+### HTML Builder (`shared/html/health-page.ts`)
 
 Add a second section to the health page:
 
@@ -189,14 +189,14 @@ Add `RAILS_API_URL?: string` to `HealthBindings.Bindings`.
 
 ## Files to Change
 
-| File                                            | Change                                                 |
-| ----------------------------------------------- | ------------------------------------------------------ |
-| `shared/apex/routes/health.ts`                  | Add Rails fetch logic + updated bindings type          |
-| `shared/apex/html/health-page.ts`               | Add Rails health section to HTML output                |
-| `app/apex/wrangler.jsonc`                       | Add `RAILS_API_URL` var                                |
-| `com/apex/wrangler.jsonc`                       | Add `RAILS_API_URL` var                                |
-| `org/apex/wrangler.jsonc`                       | Add `RAILS_API_URL` var                                |
-| `shared/apex/routes/index.test.ts` (or related) | Update/add tests for Rails fetch success + error paths |
+| File                                       | Change                                                 |
+| ------------------------------------------ | ------------------------------------------------------ |
+| `shared/routes/health.ts`                  | Add Rails fetch logic + updated bindings type          |
+| `shared/html/health-page.ts`               | Add Rails health section to HTML output                |
+| `app/wrangler.jsonc`                       | Add `RAILS_API_URL` var                                |
+| `com/wrangler.jsonc`                       | Add `RAILS_API_URL` var                                |
+| `org/wrangler.jsonc`                       | Add `RAILS_API_URL` var                                |
+| `shared/routes/index.test.ts` (or related) | Update/add tests for Rails fetch success + error paths |
 
 ## Tests
 
@@ -215,7 +215,7 @@ Add `RAILS_API_URL?: string` to `HealthBindings.Bindings`.
 
 **Implemented.**
 
-- Migrated `app/apex`, `com/apex`, `org/apex`, and `net/apex` to use a unified `createHealthRoute` from `shared/apex/routes/health.ts`.
+- Migrated `app`, `com`, `org`, and `net` to use a unified `createHealthRoute` from `shared/routes/health.ts`.
 - Integrated `RAILS_API_URL` fetching for Rails backend status visibility in the unified HTML status page.
 - Added `RAILS_API_URL` environment variables to the respective `wrangler.jsonc` configurations.
 - Handled non-2xx responses and unhandled fetch exceptions properly as per the plan's UI requirements.

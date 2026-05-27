@@ -29,12 +29,12 @@ All commands run from the repo root using **Vite+** (`vp`).
 
 Each domain has an apex service built with Hono on Workers:
 
-| Workspace  | Domain         | Dev Port |
-| ---------- | -------------- | -------- |
-| `app/apex` | umaxica.app    | 5401     |
-| `com/apex` | umaxica.com    | 5101     |
-| `org/apex` | umaxica.org    | 5301     |
-| `net/apex` | Network worker | 5201     |
+| Workspace | Domain         | Dev Port |
+| --------- | -------------- | -------- |
+| `app`     | umaxica.app    | 5401     |
+| `com`     | umaxica.com    | 5101     |
+| `org`     | umaxica.org    | 5301     |
+| `net`     | Network worker | 5201     |
 
 ### Service Pattern
 
