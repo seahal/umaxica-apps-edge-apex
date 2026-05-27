@@ -12,12 +12,12 @@
 
 ## Workspaces
 
-| Package    | Role                | Domain        | Dev Port |
-| ---------- | ------------------- | ------------- | -------- |
-| `com/apex` | Apex/static worker  | `umaxica.com` | 5101     |
-| `app/apex` | Apex/static worker  | `umaxica.app` | 5401     |
-| `org/apex` | Apex/static worker  | `umaxica.org` | 5301     |
-| `net/apex` | Network apex worker | —             | 5201     |
+| Package | Role                | Domain        | Dev Port |
+| ------- | ------------------- | ------------- | -------- |
+| `com`   | Apex/static worker  | `umaxica.com` | 5101     |
+| `app`   | Apex/static worker  | `umaxica.app` | 5401     |
+| `org`   | Apex/static worker  | `umaxica.org` | 5301     |
+| `net`   | Network apex worker | —             | 5201     |
 
 ## Quick Start
 
@@ -25,7 +25,7 @@
 vp install
 
 # Run a specific workspace
-vp run --filter <workspace> server   # e.g. com/apex, app/apex
+vp run --filter <workspace> server   # e.g. com, app
 
 # Docker (optional)
 docker compose up && docker compose exec apex bash
@@ -78,9 +78,9 @@ docker compose up && docker compose exec apex bash
 
 ## Production Environment
 
-| Platform                                              | Workspaces                                  | Domains                                     |
-| ----------------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| [Cloudflare Workers](https://workers.cloudflare.com/) | `com/apex`, `app/apex`, `org/apex`, `net/apex` | `umaxica.com`, `umaxica.app`, `umaxica.org` |
+| Platform                                              | Workspaces                 | Domains                                     |
+| ----------------------------------------------------- | -------------------------- | ------------------------------------------- |
+| [Cloudflare Workers](https://workers.cloudflare.com/) | `com`, `app`, `org`, `net` | `umaxica.com`, `umaxica.app`, `umaxica.org` |
 
 ### Deployment
 

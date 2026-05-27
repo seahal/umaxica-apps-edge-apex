@@ -2,9 +2,9 @@
   "name": "umaxica-apps-edge-apex-dc",
   "dockerComposeFile": ["../compose.yaml", "./compose.override.yml"],
   "service": "apex",
-  "remoteUser": "edge",
-  "containerUser": "edge",
-  "workspaceFolder": "/home/edge/workspace",
+  "remoteUser": "apex",
+  "containerUser": "apex",
+  "workspaceFolder": "/home/apex/workspace",
   "shutdownAction": "stopCompose",
   "runServices": ["apex"],
   "overrideCommand": false,
@@ -99,17 +99,17 @@
     "NODE_OPTIONS": "--max-old-space-size=4096"
   },
   "mounts": [
-    "source=${localEnv:HOME}/.claude,target=/home/edge/.claude,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.claude.json,target=/home/edge/.claude.json,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.copilot,target=/home/edge/.copilot,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.codex,target=/home/edge/.codex,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.gemini,target=/home/edge/.gemini,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.config/gh,target=/home/edge/.config/gh,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.config/git,target=/home/edge/.config/git,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.gitconfig,target=/home/edge/.gitconfig,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.ssh,target=/home/edge/.ssh,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.config/opencode,target=/home/edge/.config/opencode,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.claude,target=/home/apex/.claude,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.claude.json,target=/home/apex/.claude.json,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.copilot,target=/home/apex/.copilot,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.codex,target=/home/apex/.codex,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.gemini,target=/home/apex/.gemini,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/gh,target=/home/apex/.config/gh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/git,target=/home/apex/.config/git,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.gitconfig,target=/home/apex/.gitconfig,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.ssh,target=/home/apex/.ssh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/opencode,target=/home/apex/.config/opencode,type=bind,consistency=cached"
   ],
   "updateRemoteUserUID": true,
-  "postCreateCommand": "sudo chown -R 1000:1000 /home/edge/"
+  "postCreateCommand": "sudo chown -R 1000:1000 /home/apex/"
 }
