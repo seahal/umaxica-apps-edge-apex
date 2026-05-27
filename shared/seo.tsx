@@ -1,9 +1,7 @@
 /** @jsxImportSource hono/jsx */
-import { createMiddleware } from 'hono/factory';
-import type { Child } from 'hono/jsx';
 import { buildBrandTitle, type BrandTitleOptions } from './title';
 
-export type OpenGraphMeta = {
+type OpenGraphMeta = {
   title?: string;
   description?: string;
   type?: string;
@@ -11,7 +9,7 @@ export type OpenGraphMeta = {
   image?: string;
 };
 
-export type TwitterMeta = {
+type TwitterMeta = {
   card?: string;
   site?: string;
 };
@@ -37,13 +35,6 @@ function toNonEmptyTrimmed(value: string | undefined): string | undefined {
   }
   const trimmed = value.trim();
   return trimmed.length > 0 ? trimmed : undefined;
-}
-
-export function withMeta(meta: Meta) {
-  return createMiddleware(async (c, next) => {
-    setMeta(c, meta);
-    await next();
-  });
 }
 
 export function setMeta(c: MetaContext, meta: Meta): void {
@@ -91,28 +82,5 @@ export function SeoHead({ c, brand, defaultMeta }: SeoHeadProps) {
         <meta name="twitter:site" content={twitter?.site} />
       ) : null}
     </>
-  );
-}
-
-type LayoutProps = {
-  c: MetaContext;
-  brand: BrandTitleOptions;
-  defaultMeta?: Meta;
-  children: Child;
-  lang?: string;
-};
-
-export function Layout({ c, brand, defaultMeta, children, lang = 'ja' }: LayoutProps) {
-  const seoHeadProps = defaultMeta ? { c, brand, defaultMeta } : { c, brand };
-
-  return (
-    <html lang={lang}>
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <SeoHead {...seoHeadProps} />
-      </head>
-      <body>{children}</body>
-    </html>
   );
 }

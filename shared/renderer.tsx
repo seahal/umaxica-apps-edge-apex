@@ -1,6 +1,7 @@
 /** @jsxImportSource hono/jsx */
 import { jsxRenderer } from 'hono/jsx-renderer';
 import { getBrandName } from './brand';
+import { APEX_INLINE_STYLE } from './inline-style';
 import { brandFromEnv } from './title';
 import { SeoHead } from './seo';
 
@@ -13,7 +14,7 @@ export const renderer = jsxRenderer(({ children }, c) => {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <SeoHead c={c} brand={brandFromEnv(c)} />
-        <link href="/style.css" rel="stylesheet" />
+        <style>{APEX_INLINE_STYLE}</style>
       </head>
       <body class="min-h-screen flex flex-col bg-gray-50">
         <header class="bg-white shadow-sm">

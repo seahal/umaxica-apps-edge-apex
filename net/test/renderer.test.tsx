@@ -1,10 +1,11 @@
 /** @jsxImportSource hono/jsx */
 import { Hono } from 'hono';
-import { renderer } from '../src/renderer';
+import type { ApexEnv } from '../../shared/create-apex-app';
+import { renderer } from '../../shared/renderer';
 
 describe('Renderer layout', () => {
-  const app = new Hono();
-  app.use(renderer as unknown as Parameters<typeof app.use>[0]);
+  const app = new Hono<ApexEnv>();
+  app.use(renderer);
   app.get('/', (c) => c.render(<p>Test content</p>));
 
   it('renders full HTML document structure', async () => {
@@ -37,7 +38,7 @@ describe('Renderer layout', () => {
     expect(body).toContain('Test content');
   });
 
-  it('includes Footer component', async () => {
+  it('includes footer markup', async () => {
     const res = await app.request('/');
     const body = await res.text();
     expect(body).toContain('<footer');
@@ -58,10 +59,11 @@ describe('Renderer layout', () => {
     expect(body).toContain('width=device-width');
   });
 
-  it('links the generated stylesheet without Vite client markup', async () => {
+  it('inlines styles without Vite client markup', async () => {
     const res = await app.request('/');
     const body = await res.text();
-    expect(body).toContain('<link href="/style.css" rel="stylesheet"');
+    expect(body).toContain('<style>');
+    expect(body).not.toContain('/style.css');
     expect(body).not.toContain('/src/style.css');
     expect(body).not.toContain('@vite/client');
   });

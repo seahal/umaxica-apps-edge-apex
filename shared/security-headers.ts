@@ -23,9 +23,6 @@ export function applySecurityHeaders(c: SecurityContext): void {
 }
 
 export type AssetEnv = {
-  ASSETS?: {
-    fetch: (request: Request) => Promise<Response>;
-  };
   BRAND_NAME?: string;
   RATE_LIMITER?: RateLimiter;
 };

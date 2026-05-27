@@ -1,5 +1,5 @@
-export const DEFAULT_BRAND_NAME = 'Umaxica';
-export const DEFAULT_BRAND_SEPARATOR = ' | ';
+const DEFAULT_BRAND_NAME = 'Umaxica';
+const DEFAULT_BRAND_SEPARATOR = ' | ';
 
 export type BrandTitleOptions = {
   brandName: string;
