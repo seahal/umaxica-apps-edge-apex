@@ -120,5 +120,6 @@ app.get('/', (c) => {
   return c.redirect(redirectUrl, 301);
 });
 
-export { app };
-export default app.fetch.bind(app);
+const fetch = app.fetch.bind(app);
+
+export { app, fetch };

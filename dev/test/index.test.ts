@@ -6,8 +6,8 @@ describe('dev/api/index.ts', () => {
     expect(mod.runtime).toBe('edge');
   });
 
-  it('exports default handler', async () => {
+  it('exports GET handler', async () => {
     const mod = await import('../api/index');
-    expect(mod.default).toBeDefined();
+    expect(mod.GET).toBeTypeOf('function');
   });
 });
