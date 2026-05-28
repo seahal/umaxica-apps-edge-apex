@@ -6,11 +6,29 @@ describe('Net Hono app', () => {
     expect(res.status).toBe(200);
     expect(res.headers.get('x-robots-tag')).toBe('noindex, nofollow');
     const body = await res.text();
-    expect(body).toContain('<strong>Status:</strong> OK');
-    expect(body).toContain('Timestamp');
+    expect(body).toContain('<h1>OK</h1>');
+    expect(body).toContain('<dt>service</dt>');
+    expect(body).toContain('<dd>net</dd>');
+    expect(body).toContain('<dt>version</dt>');
+    expect(body).toContain('<dd>null</dd>');
+    expect(body).toContain('<dt>edge</dt>');
+    expect(body).toContain('<dd>cloudflare</dd>');
+    expect(body).toContain('<dt>time</dt>');
     expect(body).toContain('<meta name="robots" content="noindex, nofollow" />');
     expect(body).not.toContain('<header');
-    expect(body).not.toContain('<footer');
+  });
+
+  it('renders health JSON', async () => {
+    const res = await app.request('/health.json');
+
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({
+      ok: true,
+      service: 'net',
+      version: null,
+      edge: 'cloudflare',
+      time: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/),
+    });
   });
 
   it('redirects root to about', async () => {

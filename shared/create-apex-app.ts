@@ -5,7 +5,7 @@ import { languageDetector } from 'hono/language';
 import { logger } from 'hono/logger';
 import { timeout } from 'hono/timeout';
 import { apexCsrf } from './csrf';
-import { renderHealthPage } from './health-page';
+import { renderHealthJson, renderHealthPage } from './health-page';
 import { checkRateLimit } from './rate-limit';
 import { renderer } from './renderer';
 import { applySecurityHeaders, type AssetEnv } from './security-headers';
@@ -20,6 +20,10 @@ export type ApexEnv = {
 
 type ConfigurePageRoutes = (pageRoutes: Hono<ApexEnv>) => void;
 
+type CreateApexAppOptions = {
+  service: string;
+};
+
 function badRequest() {
   return new Response('Bad Request', { status: 400 });
 }
@@ -28,7 +32,10 @@ function notFound() {
   return new Response('Not Found', { status: 404 });
 }
 
-export function createApexApp(configurePageRoutes: ConfigurePageRoutes) {
+export function createApexApp(
+  configurePageRoutes: ConfigurePageRoutes,
+  options: CreateApexAppOptions,
+) {
   const app = new Hono<ApexEnv>();
   const pageRoutes = new Hono<ApexEnv>();
 
@@ -65,7 +72,9 @@ export function createApexApp(configurePageRoutes: ConfigurePageRoutes) {
     return badRequest();
   });
 
-  app.get('/health', timeout(2000), (c) => renderHealthPage(c.env));
+  app.get('/health', timeout(2000), (c) => renderHealthPage(c.env, options));
+  app.get('/health.html', timeout(2000), (c) => renderHealthPage(c.env, options));
+  app.get('/health.json', timeout(2000), (c) => renderHealthJson(c.env, options));
   app.route('/', pageRoutes);
   app.notFound(notFound);
 

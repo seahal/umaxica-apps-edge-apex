@@ -10,18 +10,23 @@ describe('GET /health', () => {
 
     const body = await response.text();
 
-    expect(body).toContain('<title>UMAXICA</title>');
+    expect(body).toContain('<title>UMAXICA | Health status</title>');
     expect(body).toContain('<meta name="robots" content="noindex, nofollow" />');
-    expect(body).toContain('<strong>Status:</strong> OK');
-    expect(body).toContain('Timestamp:');
+    expect(body).toContain('<h1>OK</h1>');
+    expect(body).toContain('<dt>service</dt>');
+    expect(body).toContain('<dd>app</dd>');
+    expect(body).toContain('<dt>version</dt>');
+    expect(body).toContain('<dd>null</dd>');
+    expect(body).toContain('<dt>edge</dt>');
+    expect(body).toContain('<dd>cloudflare</dd>');
+    expect(body).toContain('<dt>time</dt>');
     expect(body).not.toContain('<header');
-    expect(body).not.toContain('<footer');
   });
 
   it('uses BRAND_NAME from env in the health page title', async () => {
     const response = await requestFromApp('/health', {}, { BRAND_NAME: 'UMAXCA' });
     const body = await response.text();
-    expect(body).toContain('<title>UMAXCA</title>');
+    expect(body).toContain('<title>UMAXCA | Health status</title>');
   });
 
   it('applies security headers to HTML responses', async () => {
@@ -35,7 +40,7 @@ describe('GET /health', () => {
     const response = await requestFromApp('/health');
     const body = await response.text();
 
-    const timestampMatch = body.match(/Timestamp:<\/strong>\s*([^<]+)/);
+    const timestampMatch = body.match(/<dt>time<\/dt>\s*<dd>([^<]+)<\/dd>/);
     expect(timestampMatch?.[1]).toBeTruthy();
 
     const timestamp = timestampMatch?.[1];
@@ -58,6 +63,22 @@ describe('GET /health', () => {
     expect(body).toContain('</html>');
     expect(body).toContain('charSet');
     expect(body).toContain('viewport');
+  });
+
+  it('returns health JSON with the five health fields', async () => {
+    const response = await requestFromApp('/health.json');
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toContain('application/json');
+
+    const body = await response.json();
+    expect(body).toEqual({
+      ok: true,
+      service: 'app',
+      version: null,
+      edge: 'cloudflare',
+      time: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/),
+    });
   });
 
   it('includes all required CSP directives', async () => {

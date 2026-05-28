@@ -6,6 +6,15 @@ const TITLE_BRAND_NAME = 'UMAXICA';
 const DOMAIN = 'dev';
 const SITE_URL = 'umaxica.dev';
 const DEFAULT_LANGUAGE = 'en';
+const HEALTH_ROBOTS_HEADER = 'noindex, nofollow';
+
+type HealthPayload = {
+  ok: true;
+  service: 'dev';
+  version: string | null;
+  edge: 'vercel';
+  time: string;
+};
 
 function buildApexTitle(pageName?: string): string {
   const baseTitle = `${TITLE_BRAND_NAME} (${DOMAIN}) - Apex`;
@@ -44,37 +53,68 @@ function buildPageShell(options: {
 </html>`;
 }
 
-function buildHealthPageHtml(brandName: string, timestampIso: string): string {
+function buildHealthPayload(): HealthPayload {
+  return {
+    ok: true,
+    service: 'dev',
+    version: process.env.VERCEL_GIT_COMMIT_SHA ?? null,
+    edge: 'vercel',
+    time: new Date().toISOString(),
+  };
+}
+
+function buildHealthPageHtml(brandName: string, payload: HealthPayload): string {
   return `<!doctype html>
 <html lang="${DEFAULT_LANGUAGE}">
   <head>
     <meta charSet="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${buildApexTitle()}</title>
-    <meta name="robots" content="noindex, nofollow" />
+    <title>${buildApexTitle('Health status')}</title>
+    <meta name="robots" content="${HEALTH_ROBOTS_HEADER}" />
   </head>
   <body style="font-family: system-ui, sans-serif; margin: 0; padding: 2rem; line-height: 1.6;">
     <main style="max-width: 720px; margin: 0 auto;">
-      <h1 style="margin: 0 0 1rem;">${brandName}</h1>
-      <p><strong>Status:</strong> OK</p>
-      <p><strong>Timestamp:</strong> ${timestampIso}</p>
-      <p><strong>Domain:</strong> ${SITE_URL}</p>
+      <h1 style="margin: 0 0 1rem;">OK</h1>
+      <dl>
+        <dt>ok</dt>
+        <dd>${String(payload.ok)}</dd>
+        <dt>service</dt>
+        <dd>${payload.service}</dd>
+        <dt>version</dt>
+        <dd>${String(payload.version)}</dd>
+        <dt>edge</dt>
+        <dd>${payload.edge}</dd>
+        <dt>time</dt>
+        <dd>${payload.time}</dd>
+      </dl>
     </main>
+    <footer style="max-width: 720px; margin: 3rem auto 0;">&copy; ${new Date(payload.time).getUTCFullYear()} ${brandName}</footer>
   </body>
 </html>`;
 }
 
-const app = new Hono();
-
-app.get('/health', (_c) => {
-  const timestampIso = new Date().toISOString();
-  const html = buildHealthPageHtml(BRAND_NAME, timestampIso);
-
-  return new Response(html, {
+function renderHealthHtmlResponse(): Response {
+  return new Response(buildHealthPageHtml(BRAND_NAME, buildHealthPayload()), {
     status: 200,
     headers: {
       'content-type': 'text/html; charset=UTF-8',
-      'X-Robots-Tag': 'noindex, nofollow',
+      'X-Robots-Tag': HEALTH_ROBOTS_HEADER,
+    },
+  });
+}
+
+const app = new Hono();
+
+app.get('/health', (_c) => renderHealthHtmlResponse());
+
+app.get('/health.html', (_c) => renderHealthHtmlResponse());
+
+app.get('/health.json', (_c) => {
+  return new Response(JSON.stringify(buildHealthPayload()), {
+    status: 200,
+    headers: {
+      'content-type': 'application/json; charset=UTF-8',
+      'X-Robots-Tag': HEALTH_ROBOTS_HEADER,
     },
   });
 });
