@@ -7,11 +7,11 @@ describe('dev/src/app.ts', () => {
   });
 
   describe('buildApexTitle', () => {
-    it('returns base title without pageName', async () => {
+    it('returns health status title for health page', async () => {
       const res = await app.request('/health');
       expect(res.status).toBe(200);
       const body = await res.text();
-      expect(body).toContain('<title>UMAXICA (dev) - Apex</title>');
+      expect(body).toContain('<title>Health status | UMAXICA (dev) - Apex</title>');
     });
 
     it('returns title with pageName when /about is requested', async () => {
@@ -68,14 +68,34 @@ describe('dev/src/app.ts', () => {
   });
 
   describe('buildHealthPageHtml', () => {
-    it('renders health page with brand name and timestamp', async () => {
+    it('renders health page with five health fields', async () => {
       const res = await app.request('/health');
       expect(res.status).toBe(200);
       const body = await res.text();
       expect(body).toContain('UMAXICA');
-      expect(body).toContain('<strong>Status:</strong> OK');
-      expect(body).toContain('Timestamp:');
-      expect(body).toContain('umaxica.dev');
+      expect(body).toContain('<h1 style="margin: 0 0 1rem;">OK</h1>');
+      expect(body).toContain('<dt>service</dt>');
+      expect(body).toContain('<dd>dev</dd>');
+      expect(body).toContain('<dt>version</dt>');
+      expect(body).toContain('<dd>null</dd>');
+      expect(body).toContain('<dt>edge</dt>');
+      expect(body).toContain('<dd>vercel</dd>');
+      expect(body).toContain('<dt>time</dt>');
+    });
+
+    it('renders health JSON with null version when no Vercel commit is available', async () => {
+      delete process.env.VERCEL_GIT_COMMIT_SHA;
+
+      const res = await app.request('/health.json');
+
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({
+        ok: true,
+        service: 'dev',
+        version: null,
+        edge: 'vercel',
+        time: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/),
+      });
     });
   });
 

@@ -24,5 +24,8 @@ export function applySecurityHeaders(c: SecurityContext): void {
 
 export type AssetEnv = {
   BRAND_NAME?: string;
+  CF_VERSION_METADATA?: {
+    id?: string;
+  };
   RATE_LIMITER?: RateLimiter;
 };
