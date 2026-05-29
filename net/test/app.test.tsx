@@ -6,7 +6,9 @@ describe('Net Hono app', () => {
     expect(res.status).toBe(200);
     expect(res.headers.get('x-robots-tag')).toBe('noindex, nofollow');
     const body = await res.text();
-    expect(body).toContain('<h1>OK</h1>');
+    expect(body).toContain('<h1>status</h1>');
+    expect(body).toContain('<dt>status</dt>');
+    expect(body).toContain('<dd>OK</dd>');
     expect(body).toContain('<dt>service</dt>');
     expect(body).toContain('<dd>net</dd>');
     expect(body).toContain('<dt>version</dt>');
@@ -23,7 +25,7 @@ describe('Net Hono app', () => {
 
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
-      ok: true,
+      status: 'OK',
       service: 'net',
       version: null,
       edge: 'cloudflare',

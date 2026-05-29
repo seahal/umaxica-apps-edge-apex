@@ -5,7 +5,7 @@ import type { AssetEnv } from './security-headers';
 const HEALTH_ROBOTS_HEADER = 'noindex, nofollow';
 
 type HealthPayload = {
-  ok: true;
+  status: 'OK';
   service: string;
   version: string | null;
   edge: 'cloudflare';
@@ -18,7 +18,7 @@ type HealthPageOptions = {
 
 function buildHealthPayload(env: AssetEnv, options: HealthPageOptions): HealthPayload {
   return {
-    ok: true,
+    status: 'OK',
     service: options.service,
     version: env?.CF_VERSION_METADATA?.id ?? null,
     edge: 'cloudflare',
@@ -39,10 +39,10 @@ function buildHealthPageHtml(brandName: string, payload: HealthPayload): string 
   <body class="min-h-screen flex flex-col bg-gray-50">
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8">
       <div class="space-y-4">
-        <h1>OK</h1>
+        <h1>status</h1>
         <dl>
-          <dt>ok</dt>
-          <dd>${String(payload.ok)}</dd>
+          <dt>status</dt>
+          <dd>${payload.status}</dd>
           <dt>service</dt>
           <dd>${payload.service}</dd>
           <dt>version</dt>

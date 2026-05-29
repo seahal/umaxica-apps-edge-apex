@@ -9,7 +9,7 @@ const DEFAULT_LANGUAGE = 'en';
 const HEALTH_ROBOTS_HEADER = 'noindex, nofollow';
 
 type HealthPayload = {
-  ok: true;
+  status: 'OK';
   service: 'dev';
   version: string | null;
   edge: 'vercel';
@@ -55,7 +55,7 @@ function buildPageShell(options: {
 
 function buildHealthPayload(): HealthPayload {
   return {
-    ok: true,
+    status: 'OK',
     service: 'dev',
     version: process.env.VERCEL_GIT_COMMIT_SHA ?? null,
     edge: 'vercel',
@@ -74,10 +74,10 @@ function buildHealthPageHtml(brandName: string, payload: HealthPayload): string 
   </head>
   <body style="font-family: system-ui, sans-serif; margin: 0; padding: 2rem; line-height: 1.6;">
     <main style="max-width: 720px; margin: 0 auto;">
-      <h1 style="margin: 0 0 1rem;">OK</h1>
+      <h1 style="margin: 0 0 1rem;">status</h1>
       <dl>
-        <dt>ok</dt>
-        <dd>${String(payload.ok)}</dd>
+        <dt>status</dt>
+        <dd>${payload.status}</dd>
         <dt>service</dt>
         <dd>${payload.service}</dd>
         <dt>version</dt>

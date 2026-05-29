@@ -12,7 +12,9 @@ describe('GET /health', () => {
 
     expect(body).toContain('<title>UMAXICA | Health status</title>');
     expect(body).toContain('<meta name="robots" content="noindex, nofollow" />');
-    expect(body).toContain('<h1>OK</h1>');
+    expect(body).toContain('<h1>status</h1>');
+    expect(body).toContain('<dt>status</dt>');
+    expect(body).toContain('<dd>OK</dd>');
     expect(body).toContain('<dt>service</dt>');
     expect(body).toContain('<dd>app</dd>');
     expect(body).toContain('<dt>version</dt>');
@@ -27,6 +29,19 @@ describe('GET /health', () => {
     const response = await requestFromApp('/health', {}, { BRAND_NAME: 'UMAXCA' });
     const body = await response.text();
     expect(body).toContain('<title>UMAXCA | Health status</title>');
+  });
+
+  it('returns the same health HTML document from /health.html', async () => {
+    const response = await requestFromApp('/health.html');
+    const body = await response.text();
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toContain('text/html');
+    expect(body).toContain('<h1>status</h1>');
+    expect(body).toContain('<dt>status</dt>');
+    expect(body).toContain('<dd>OK</dd>');
+    expect(body).toContain('<dt>edge</dt>');
+    expect(body).toContain('<dd>cloudflare</dd>');
   });
 
   it('applies security headers to HTML responses', async () => {
@@ -73,7 +88,7 @@ describe('GET /health', () => {
 
     const body = await response.json();
     expect(body).toEqual({
-      ok: true,
+      status: 'OK',
       service: 'app',
       version: null,
       edge: 'cloudflare',

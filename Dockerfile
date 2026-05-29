@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_VERSION=26-trixie
+ARG NODE_VERSION=24-trixie
 ARG DOCKER_UID=1000
 ARG DOCKER_USER=apex
 ARG DOCKER_GID=1000

@@ -73,7 +73,9 @@ describe('dev/src/app.ts', () => {
       expect(res.status).toBe(200);
       const body = await res.text();
       expect(body).toContain('UMAXICA');
-      expect(body).toContain('<h1 style="margin: 0 0 1rem;">OK</h1>');
+      expect(body).toContain('<h1 style="margin: 0 0 1rem;">status</h1>');
+      expect(body).toContain('<dt>status</dt>');
+      expect(body).toContain('<dd>OK</dd>');
       expect(body).toContain('<dt>service</dt>');
       expect(body).toContain('<dd>dev</dd>');
       expect(body).toContain('<dt>version</dt>');
@@ -90,7 +92,7 @@ describe('dev/src/app.ts', () => {
 
       expect(res.status).toBe(200);
       expect(await res.json()).toEqual({
-        ok: true,
+        status: 'OK',
         service: 'dev',
         version: null,
         edge: 'vercel',
