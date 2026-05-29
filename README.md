@@ -102,6 +102,21 @@ For local Docker Compose development, `compose.yaml` publishes the workspace por
 
 Uptime checks via [Pulsetic](https://pulsetic.com/).
 
+Apex workspaces expose `/health`, `/health.html`, and `/health.json`.
+The JSON health contract is:
+
+```json
+{
+  "status": "OK",
+  "service": "app",
+  "version": null,
+  "edge": "cloudflare",
+  "time": "2026-05-29T00:00:00.000Z"
+}
+```
+
+Cloudflare workspaces use `"edge": "cloudflare"` and `dev` uses `"edge": "vercel"`.
+
 ## Acknowledgement
 
 - Public availability of this repository is not guaranteed permanently.

@@ -1,4 +1,4 @@
-import { renderHealthPage } from './health-page';
+import { renderHealthJson, renderHealthPage } from './health-page';
 
 describe('renderHealthPage', () => {
   afterEach(() => {
@@ -29,5 +29,20 @@ describe('renderHealthPage', () => {
     expect(response.headers.get('content-type')).toBe('text/html; charset=UTF-8');
     expect(response.headers.get('x-robots-tag')).toBe('noindex, nofollow');
     expect(await response.text()).toContain('status: error');
+  });
+
+  it('uses Cloudflare version metadata in the health JSON response', async () => {
+    const response = renderHealthJson(
+      { CF_VERSION_METADATA: { id: 'test-version-id' } },
+      { service: 'app' },
+    );
+
+    expect(await response.json()).toEqual({
+      status: 'OK',
+      service: 'app',
+      version: 'test-version-id',
+      edge: 'cloudflare',
+      time: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/),
+    });
   });
 });

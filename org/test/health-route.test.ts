@@ -11,7 +11,9 @@ describe('GET /health', () => {
     const body = await response.text();
     expect(body).toContain('<title>UMAXICA | Health status</title>');
     expect(body).toContain('<meta name="robots" content="noindex, nofollow" />');
-    expect(body).toContain('<h1>OK</h1>');
+    expect(body).toContain('<h1>status</h1>');
+    expect(body).toContain('<dt>status</dt>');
+    expect(body).toContain('<dd>OK</dd>');
     expect(body).toContain('<dt>service</dt>');
     expect(body).toContain('<dd>org</dd>');
     expect(body).toContain('<dt>version</dt>');
@@ -34,7 +36,7 @@ describe('GET /health', () => {
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toContain('application/json');
     expect(await response.json()).toEqual({
-      ok: true,
+      status: 'OK',
       service: 'org',
       version: null,
       edge: 'cloudflare',
