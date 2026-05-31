@@ -98,25 +98,7 @@ Cloudflare workspaces use `wrangler.jsonc` (`vars` + environments).
 
 For local Docker Compose development, `compose.yaml` publishes the workspace ports listed in the workspace table, including the Vercel-backed `dev` workspace on port 5501.
 
-## Monitoring
-
-Uptime checks via [Pulsetic](https://pulsetic.com/).
-
-Apex workspaces expose `/health`, `/health.html`, and `/health.json`.
-The JSON health contract is:
-
-```json
-{
-  "status": "OK",
-  "service": "app",
-  "version": null,
-  "edge": "cloudflare",
-  "time": "2026-05-29T00:00:00.000Z"
-}
-```
-
-Cloudflare workspaces use `"edge": "cloudflare"` and `dev` uses `"edge": "vercel"`.
-
 ## Acknowledgement
-
+- Secrets must stay in Rails credentials; do not commit plaintext secrets.
+- WebAuthn origins are controlled by `TRUSTED_ORIGINS`.
 - Public availability of this repository is not guaranteed permanently.
