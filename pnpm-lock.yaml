@@ -57,20 +57,20 @@ importers:
   app:
     dependencies:
       hono:
-        specifier: ^4.12.5
-        version: 4.12.22
+        specifier: ^4.12.23
+        version: 4.12.23
 
   com:
     dependencies:
       hono:
-        specifier: ^4.12.5
-        version: 4.12.22
+        specifier: ^4.12.23
+        version: 4.12.23
 
   dev:
     dependencies:
       hono:
-        specifier: ^4.12.5
-        version: 4.12.22
+        specifier: ^4.12.23
+        version: 4.12.23
     devDependencies:
       '@types/node':
         specifier: ^25.7.0
@@ -82,14 +82,14 @@ importers:
   net:
     dependencies:
       hono:
-        specifier: ^4.12.5
-        version: 4.12.22
+        specifier: ^4.12.23
+        version: 4.12.23
 
   org:
     dependencies:
       hono:
-        specifier: ^4.12.5
-        version: 4.12.22
+        specifier: ^4.12.23
+        version: 4.12.23
 
 packages:
 
@@ -1559,10 +1559,6 @@ packages:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
 
-  hono@4.12.22:
-    resolution: {integrity: sha512-7fvVPbB92zNRsQke+uiRGwtTuef0tB2Dg4hWxYfFNvkQhIltWoyi0ONReM5LWA+jJWS3nfT5lTq+qbsIpX0IQw==, tarball: https://registry.npmjs.org/hono/-/hono-4.12.22.tgz}
-    engines: {node: '>=16.9.0'}
-
   hono@4.12.23:
     resolution: {integrity: sha512-eIaZ9qDgu7XV0pxOCrg7/WhnQ6Ivm22UcxhXx/A3dcbqbbYgBEkc6e/J/s7j2tS96zoB0S9VBdLwQNCWwUo4LA==}
     engines: {node: '>=16.9.0'}
@@ -1692,8 +1688,8 @@ packages:
     resolution: {integrity: sha512-NXYBzinNrblfraPGyrbPoD19C1h9lfI/1mzgWYvXUTe414Gz/X1FD2XBZSZM7rRTrMA8JL3OtAaGifrIKhQ5yQ==}
     engines: {node: '>= 12.0.0'}
 
-  lru-cache@11.5.0:
-    resolution: {integrity: sha512-5YgH9UJd7wVb9hIouI2adWpgqrrICkt070Dnj8EUY1+B4B2P9eRLPAkAAo6NICA7CEhOIeBHl46u9zSNpNu7zA==}
+  lru-cache@11.5.1:
+    resolution: {integrity: sha512-RPimw/7aMdv2oqRrxKwvZXcPfwBrn/JZ2xYcY9Hus/6LaS3VOAKVWKWgNLCFSiOm1ESXinjsDlidVU7JlnCN2A==}
     engines: {node: 20 || >=22}
 
   magicast@0.5.3:
@@ -1905,6 +1901,10 @@ packages:
     resolution: {integrity: sha512-pn99VhoACYR8nFHhxqix+uvsbXineAasWm5ojXoN8xEwK5Kd3/TrhNn1wByuD52UxWRLy8pu+kRMniEi6Eq9Zg==}
     engines: {node: '>=12.0.0'}
 
+  tinyglobby@0.2.17:
+    resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
+    engines: {node: '>=12.0.0'}
+
   tinypool@2.1.0:
     resolution: {integrity: sha512-Pugqs6M0m7Lv1I7FtxN4aoyToKg1C4tu+/381vH35y8oENM/Ai7f7C4StcoK4/+BSw9ebcS8jRiVrORFKCALLw==}
     engines: {node: ^20.0.0 || >=22.0.0}
@@ -1913,11 +1913,11 @@ packages:
     resolution: {integrity: sha512-Bf+ILmBgretUrdJxzXM0SgXLZ3XfiaUuOj/IKQHuTXip+05Xn+uyEYdVg0kYDipTBcLrCVyUzAPz7QmArb0mmw==}
     engines: {node: '>=14.0.0'}
 
-  tldts-core@7.4.0:
-    resolution: {integrity: sha512-/mb9kRld+x1sIMXxWNOAp5m6C+D4GrAORWlJkOJ5dElvxdN1eutz/o7qHLp9gFvDF4Y3/L2xeScoxz6AbEo8rQ==}
+  tldts-core@7.4.2:
+    resolution: {integrity: sha512-nwEyF4vl4RSJjwSjBUmOSxc3BFPoIFdlRthJ6e+5v9P3bHNsoD06UjuqMUspqp7vsEZ1beaHi1km+optiE17yA==}
 
-  tldts@7.4.0:
-    resolution: {integrity: sha512-yHBe+zVfzNZ3QfTPW/Z6KK1G2t340gFjMHqI/4KKSt/abzYydzuCnpqdaF5gCCABby+9Yfbj59oR5F2Fd5CBzg==}
+  tldts@7.4.2:
+    resolution: {integrity: sha512-kCwffuaH8ntKtygnWe1b4BJKWiCUH30n5KfoTr6IchcXOwR7chAOFJxFrH3vjANafUYrIA4a7SDL+nn7SiR4Sw==}
     hasBin: true
 
   totalist@3.0.1:
@@ -3073,8 +3073,6 @@ snapshots:
 
   has-flag@4.0.0: {}
 
-  hono@4.12.22: {}
-
   hono@4.12.23: {}
 
   html-encoding-sniffer@6.0.0(@noble/hashes@1.8.0):
@@ -3120,7 +3118,7 @@ snapshots:
       decimal.js: 10.6.0
       html-encoding-sniffer: 6.0.0(@noble/hashes@1.8.0)
       is-potential-custom-element-name: 1.0.1
-      lru-cache: 11.5.0
+      lru-cache: 11.5.1
       parse5: 8.0.1
       saxes: 6.0.0
       symbol-tree: 3.2.4
@@ -3206,7 +3204,7 @@ snapshots:
       lightningcss-win32-arm64-msvc: 1.32.0
       lightningcss-win32-x64-msvc: 1.32.0
 
-  lru-cache@11.5.0:
+  lru-cache@11.5.1:
     optional: true
 
   magicast@0.5.3:
@@ -3519,23 +3517,28 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
 
+  tinyglobby@0.2.17:
+    dependencies:
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
+
   tinypool@2.1.0: {}
 
   tinyrainbow@3.1.0: {}
 
-  tldts-core@7.4.0:
+  tldts-core@7.4.2:
     optional: true
 
-  tldts@7.4.0:
+  tldts@7.4.2:
     dependencies:
-      tldts-core: 7.4.0
+      tldts-core: 7.4.2
     optional: true
 
   totalist@3.0.1: {}
 
   tough-cookie@6.0.1:
     dependencies:
-      tldts: 7.4.0
+      tldts: 7.4.2
     optional: true
 
   tr46@6.0.0:
@@ -3626,7 +3629,7 @@ snapshots:
       picomatch: 4.0.4
       postcss: 8.5.15
       rolldown: 1.0.0-rc.6(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)
-      tinyglobby: 0.2.16
+      tinyglobby: 0.2.17
     optionalDependencies:
       '@types/node': 25.9.1
       esbuild: 0.27.3

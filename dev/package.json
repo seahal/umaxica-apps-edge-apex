@@ -7,7 +7,7 @@
     "type": "tsc --noEmit"
   },
   "dependencies": {
-    "hono": "^4.12.5"
+    "hono": "^4.12.23"
   },
   "devDependencies": {
     "@types/node": "^25.7.0",
