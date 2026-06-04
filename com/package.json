@@ -12,6 +12,6 @@
     "type": "vp run cf-typegen && vp exec tsgo --noEmit"
   },
   "dependencies": {
-    "hono": "^4.12.5"
+    "hono": "^4.12.23"
   }
 }
