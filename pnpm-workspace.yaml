@@ -14,7 +14,7 @@ catalog:
   vite: npm:@voidzero-dev/vite-plus-core@latest
   vite-plus: ^0.1.23
   vitest: npm:@voidzero-dev/vite-plus-test@^0.1.23
-  wrangler: ^4.93.0
+  wrangler: ^4.97.0
 
 ignoredBuiltDependencies:
   - '@sentry/cli'
